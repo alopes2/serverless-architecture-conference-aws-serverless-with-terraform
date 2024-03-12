@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 data "aws_iam_policy_document" "policies" {
-  override_policy_documents = var.policies != null ? [var.policies] : null
+  override_policy_documents = var.policies
 
   statement {
     effect = "Allow"

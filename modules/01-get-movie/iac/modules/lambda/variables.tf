@@ -18,6 +18,6 @@ variable "source_file_path" {
 
 variable "policies" {
   description = "The policies for this lambda."
-  type        = string
+  type        = list(string)
   default     = null
 }
