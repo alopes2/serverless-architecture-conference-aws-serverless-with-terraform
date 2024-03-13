@@ -1,4 +1,4 @@
-module "get-movie-lambda" {
+module "get_movie_lambda" {
   source           = "./modules/lambda"
   name             = "get-movie"
   source_file_path = "./lambda_init_code/index.mjs"
