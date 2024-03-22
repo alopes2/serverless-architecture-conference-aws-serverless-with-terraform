@@ -55,7 +55,7 @@ module "get_movie_method" {
 module "create_movie_method" {
   source               = "./modules/rest-api-method"
   api_id               = aws_api_gateway_rest_api.movies_api.id
-  http_method          = "GET"
+  http_method          = "POST"
   resource_id          = aws_api_gateway_resource.movies_root_resource.id
   resource_path        = aws_api_gateway_resource.movies_root_resource.path
   integration_uri      = module.create_movie_lambda.invoke_arn
