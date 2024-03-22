@@ -52,7 +52,7 @@ module "get_movie_method" {
   execution_arn        = aws_api_gateway_rest_api.movies_api.execution_arn
 }
 
-module "get_movie_method" {
+module "create_movie_method" {
   source               = "./modules/rest-api-method"
   api_id               = aws_api_gateway_rest_api.movies_api.id
   http_method          = "GET"
