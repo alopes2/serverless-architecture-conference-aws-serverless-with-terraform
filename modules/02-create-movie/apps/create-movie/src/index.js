@@ -1,6 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 const tableName = 'movies';
 
@@ -28,7 +28,8 @@ export const handler = async (event) => {
 
   console.log('Received request: ', newMovie);
 
-  newMovie.id = uuidv4();
+  newMovie.id = randomUUID();
+  newMovie.genres = new Set(newMovie.genres);
 
   const client = new DynamoDBClient({});
   const docClient = DynamoDBDocumentClient.from(client);
@@ -37,14 +38,14 @@ export const handler = async (event) => {
     TableName: tableName,
     Item: {
       ID: newMovie.id,
-      Title: newMovie.name,
+      Title: newMovie.title,
       Rating: newMovie.rating,
-      Generes: newMovie.Genres,
+      Genres: newMovie.genres,
     },
   });
 
   try {
-    const dynamoResponse = await docClient.send(command);
+    await docClient.send(command);
 
     const response = {
       statusCode: 201,
