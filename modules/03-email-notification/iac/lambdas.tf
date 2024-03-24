@@ -15,7 +15,7 @@ module "create_movie_lambda" {
   ]
 
   environment_variables = {
-    SNS_TOPIC_ARN = aws_sns_topic.movie_updates.arn
+    SNS_TOPIC_ARN = "arn:aws:sns:${var.region}:${var.account_id}:${local.movies_update_topic_name}"
   }
 }
 
@@ -28,8 +28,8 @@ module "email_notification_lambda" {
     data.aws_iam_policy_document.email_notification.json
   ]
   environment_variables = {
-    "SOURCE_EMAIL"      = "${var.email_identity}"
-    "DESTINATION_EMAIL" = "${var.destination_email}"
+    SOURCE_EMAIL      = "${var.email_identity}"
+    DESTINATION_EMAIL = "${var.destination_email}"
   }
 }
 

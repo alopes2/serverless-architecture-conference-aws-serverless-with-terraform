@@ -1,5 +1,9 @@
+locals {
+  movies_update_topic_name = "movie-updates-topic"
+}
+
 resource "aws_sns_topic" "movie_updates" {
-  name = "movie-updates-topic"
+  name = local.movies_update_topic_name
 }
 
 resource "aws_sqs_queue" "movie_updates_queue" {
