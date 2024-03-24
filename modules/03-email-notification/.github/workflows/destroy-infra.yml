@@ -30,6 +30,6 @@ jobs:
         run: terraform init
 
       - name: Terraform Destroy
-        run:
+        run: |
           terraform destroy -auto-approve -input=false -var-file="variables.tfvars" -var account_id=${{ secrets.AWS_ACCOUNT_ID }} \
           -var email_identity=${{ secrets.EMAIL }} -var destination_email=${{ secrets.EMAIL }}
