@@ -47,9 +47,16 @@ export const handler = async (event) => {
   try {
     await docClient.send(command);
 
+    const movie = {
+      id: newMovie.id,
+      title: newMovie.title,
+      rating: newMovie.rating,
+      genres: Array.from(newMovie.genres),
+    };
+
     const response = {
       statusCode: 201,
-      body: JSON.stringify(newMovie),
+      body: JSON.stringify(movie),
     };
 
     return response;
