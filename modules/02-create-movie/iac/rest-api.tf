@@ -50,6 +50,7 @@ module "get_movie_method" {
   integration_uri      = module.get_movie_lambda.invoke_arn
   lambda_function_name = module.get_movie_lambda.name
   execution_arn        = aws_api_gateway_rest_api.movies_api.execution_arn
+  stage_name           = aws_api_gateway_stage.live.stage_name
 }
 
 module "create_movie_method" {
@@ -61,4 +62,5 @@ module "create_movie_method" {
   integration_uri      = module.create_movie_lambda.invoke_arn
   lambda_function_name = module.create_movie_lambda.name
   execution_arn        = aws_api_gateway_rest_api.movies_api.execution_arn
+  stage_name           = aws_api_gateway_stage.live.stage_name
 }

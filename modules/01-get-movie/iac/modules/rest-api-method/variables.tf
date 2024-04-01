@@ -32,3 +32,8 @@ variable "execution_arn" {
   description = "The execution ARN of the API"
   type        = string
 }
+
+variable "stage_name" {
+  description = "The deployment stage name"
+  type        = string
+}
