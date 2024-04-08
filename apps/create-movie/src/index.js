@@ -1,5 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
+import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 import { randomUUID } from 'crypto';
 
 const tableName = 'movies';
@@ -54,6 +55,8 @@ export const handler = async (event) => {
       genres: Array.from(newMovie.genres),
     };
 
+    await publishEventToSNS(movie);
+
     const response = {
       statusCode: 201,
       body: JSON.stringify(movie),
@@ -71,3 +74,26 @@ export const handler = async (event) => {
     };
   }
 };
+
+async function publishEventToSNS(movie) {
+  const snsClient = new SNSClient({});
+
+  const eventName = 'MovieCreated';
+
+  try {
+    await snsClient.send(
+      new PublishCommand({
+        Message: JSON.stringify(movie),
+        TopicArn: process.env.SNS_TOPIC_ARN,
+        MessageAttributes: {
+          Type: {
+            DataType: 'String',
+            StringValue: eventName,
+          },
+        },
+      })
+    );
+  } catch (e) {
+    console.warn(e);
+  }
+}
