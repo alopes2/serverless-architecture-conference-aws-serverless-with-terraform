@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_VAR_account_id: ${{secrets.AWS_ACCOUNT_ID}}
+      TF_VAR_email_identity: ${{secrets.EMAIL}}
+      TF_VAR_destination_email: ${{secrets.EMAIL}}
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -32,4 +34,5 @@ jobs:
         run: terraform init
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve -input=false -var-file="variables.tfvars"
+        run: |
+          terraform destroy -auto-approve -input=false -var-file="variables.tfvars"
