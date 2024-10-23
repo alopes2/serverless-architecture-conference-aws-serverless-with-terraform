@@ -5,7 +5,7 @@ Content-Type: application/json
     "title": "My Super Movie",
     "genres": [
         "Adventure",
-        "Adventure"
+        "Sci-Fi"
     ],
     "rating": 8.0
 }
