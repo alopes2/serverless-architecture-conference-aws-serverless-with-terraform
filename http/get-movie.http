@@ -1,2 +1,2 @@
-GET https://rjttcpmb01.execute-api.eu-central-1.amazonaws.com/live/movies/1
+GET https://rjttcpmb01.execute-api.eu-central-1.amazonaws.com/live/movies/b3892282-ba6f-4204-bb3b-804c27616c53
 Content-Type: application/json
