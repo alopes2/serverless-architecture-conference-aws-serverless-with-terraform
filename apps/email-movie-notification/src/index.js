@@ -1,10 +1,11 @@
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 
+const client = new SESClient({});
+
 export const handler = async (event, context) => {
-  const client = new SESClient({});
   const promises = [];
   for (const message of event.Records) {
-    promises.push(processMessageAsync(message, client));
+    promises.push(processMessageAsync(message));
   }
 
   await Promise.all(promises);
@@ -12,13 +13,13 @@ export const handler = async (event, context) => {
   console.info('done');
 };
 
-async function processMessageAsync(message, client) {
+async function processMessageAsync(message) {
   try {
     const eventType =
       message.messageAttributes['Type'].stringValue ?? 'MovieEvent';
     console.log(`Processing ${eventType} message ${message.body}`);
 
-    await sendEmail(message, client);
+    await sendEmail(message);
 
     console.log(`Processed ${eventType} message ${message.body}`);
   } catch (err) {
@@ -27,7 +28,7 @@ async function processMessageAsync(message, client) {
   }
 }
 
-async function sendEmail(message, client) {
+async function sendEmail(message) {
   const eventBody = JSON.parse(message.body);
   const subject = 'New Movie Added: ' + eventBody.title;
   const body =

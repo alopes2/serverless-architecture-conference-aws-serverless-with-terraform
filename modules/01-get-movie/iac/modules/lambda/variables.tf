@@ -11,11 +11,6 @@ variable "environment_variables" {
   default     = {}
 }
 
-variable "source_file_path" {
-  description = "The path to the source file code"
-  type        = string
-}
-
 variable "policies" {
   description = "The policies for this lambda."
   type        = list(string)

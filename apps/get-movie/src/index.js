@@ -1,7 +1,10 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
 
-const tableName = 'movies';
+const tableName = process.env.TABLE_NAME;
+
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async (event) => {
   const movieID = event.pathParameters?.movieID;
@@ -16,9 +19,6 @@ export const handler = async (event) => {
   }
 
   console.log('Getting movie with ID ', movieID);
-
-  const client = new DynamoDBClient({});
-  const docClient = DynamoDBDocumentClient.from(client);
 
   const command = new GetCommand({
     TableName: tableName,

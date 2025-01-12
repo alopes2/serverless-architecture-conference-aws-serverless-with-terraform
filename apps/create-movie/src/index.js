@@ -3,7 +3,10 @@ import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
 import { randomUUID } from 'crypto';
 
-const tableName = 'movies';
+const tableName = process.env.TABLE_NAME;
+
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async (event) => {
   let newMovie;
@@ -31,9 +34,6 @@ export const handler = async (event) => {
 
   newMovie.id = randomUUID();
   newMovie.genres = new Set(newMovie.genres);
-
-  const client = new DynamoDBClient({});
-  const docClient = DynamoDBDocumentClient.from(client);
 
   const command = new PutCommand({
     TableName: tableName,

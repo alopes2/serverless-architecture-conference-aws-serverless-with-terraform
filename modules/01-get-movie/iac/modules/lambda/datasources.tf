@@ -1,6 +1,6 @@
 data "archive_file" "lambda" {
   type        = "zip"
-  source_file = var.source_file_path
+  source_file = "${path.module}/lambda_init_code/index.js"
   output_path = "${var.name}_lambda_function_payload.zip"
 }
 

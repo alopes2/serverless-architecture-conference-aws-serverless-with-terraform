@@ -1,5 +1,6 @@
 name: Deploy Email Movie Notification Lambda
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
