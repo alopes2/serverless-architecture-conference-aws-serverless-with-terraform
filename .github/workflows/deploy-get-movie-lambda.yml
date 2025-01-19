@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
       - name: Zip build
-        run: zip -r -j main.zip ./build
+        run: cd build && zip -r ../main.zip .
 
       - name: Update Lambda code
         run: aws lambda update-function-code --function-name=get-movie --zip-file=fileb://main.zip
